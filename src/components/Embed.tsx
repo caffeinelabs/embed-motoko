@@ -1,7 +1,6 @@
 import classNames from 'classnames';
 import copy from 'copy-to-clipboard';
 import mo from 'motoko/interpreter';
-import motokoBasePackage from 'motoko/packages/latest/base.json';
 import motokoCorePackage from 'motoko/packages/latest/core.json';
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { FaCode, FaLink, FaPause, FaPlay } from 'react-icons/fa';
@@ -72,7 +71,6 @@ export default function Embed() {
     console.log('Loading packages:', packages);
     setLoading(true);
     mo.clearPackages();
-    mo.loadPackage(motokoBasePackage);
     mo.loadPackage(motokoCorePackage);
     mo.installPackages(Object.fromEntries(packages))
       .then(() => {
@@ -88,9 +86,6 @@ export default function Embed() {
   useMemo(() => {
     if (autoRun && packages.length) {
       setAutoRun(false);
-      // if (packages.length === 1 && packages[0] === motokoBasePackage) {
-      //   updatePackages();
-      // }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [packageData]);
